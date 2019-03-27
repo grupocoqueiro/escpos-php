@@ -8,8 +8,8 @@ spl_autoload_register ( function ($class) {
 	 * PSR-4 autoloader, based on PHP Framework Interop Group snippet (Under MIT License.)
 	 * https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader-examples.md
 	 */
-	$prefix = "Mike42\\";
-	$base_dir = __DIR__ . "/src/Mike42/";
+	$prefix = "Saci\\";
+	$base_dir = __DIR__ . "/src/Saci/";
 	
 	/* Only continue for classes in this namespace */
 	$len = strlen ( $prefix );

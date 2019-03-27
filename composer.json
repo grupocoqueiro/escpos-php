@@ -1,23 +1,21 @@
 {
-    "name": "mike42/escpos-php",
+    "name": "grupocoqueiro/escpos-php",
     "type": "library",
     "description": "PHP receipt printer library for use with ESC/POS-compatible thermal and impact printers",
-    "homepage": "https://github.com/mike42/escpos-php",
-    "keywords": ["receipt", "print", "escpos", "ESC-POS", "driver"],
+    "keywords": ["receipt", "print", "escpos", "ESC-POS", "driver", "ESC-BEMATECH"],
     "license": "MIT",
     "authors": [
         {
-            "name": "Michael Billington",
-            "email": "michael.billington@gmail.com"
+            "name": "Grupo Coqueiro"
         }
     ],
     "config": {
         "platform": {
-            "php": "5.4.0"
+            "php": "7.1"
         }
     },
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=7.1",
         "ext-mbstring": "*"
     },
     "suggest": {
@@ -32,7 +30,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Mike42\\": "src/Mike42"
+            "Saci\\": "src/Saci"
         }
     },
     "autoload-dev": {
