@@ -30,12 +30,34 @@ class NetworkPrintConnector extends FilePrintConnector
     public function __construct($ip, $port = "9100", $timeout = false)
     {
         // Default to 60 if default_socket_timeout isn't defined in the ini
-        $defaultSocketTimeout = ini_get("default_socket_timeout") ?: 60;
+        $defaultSocketTimeout = ini_get("default_socket_timeout") ?: 20;
         $timeout = $timeout ?: $defaultSocketTimeout;
 
-        $this -> fp = @fsockopen($ip, $port, $errno, $errstr, $timeout);
-        if ($this -> fp === false) {
+        $this->fp = @fsockopen($ip, $port, $errno, $errstr, $timeout);
+        if ($this->fp === false) {
             throw new Exception("Cannot initialise NetworkPrintConnector: " . $errstr);
         }
+    }
+
+    /**
+     * Read some bytes from file
+     * @param  int $len
+     * @return string
+     */
+    public function read($len = null)
+    {
+        $data = '';
+        if (!is_resource($this->fp)) {
+            return $data;
+        }
+        if (!is_null($len) && is_numeric($len)) {
+            $len = ceil($len);
+            return ord(fread($this->fp, $len));
+        }
+
+        while (!feof($this->fp)) {
+            $data .= (fread($this->fp, 4096));
+        }
+        return $data;
     }
 }

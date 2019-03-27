@@ -34,5 +34,10 @@
         "psr-4": {
             "Mike42\\": "src/Mike42"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Test\\":"test"
+        }
     }
 }
