@@ -156,4 +156,9 @@ class BematechPrinter extends Printer
     {
         $this->connector->write(self::ESC . "i");
     }
+
+    public function openDrawer()
+    {
+        $this->connector->write(self::ESC."vn");
+    }
 }

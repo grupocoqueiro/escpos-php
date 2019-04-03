@@ -35,7 +35,7 @@ class NetworkPrintConnector extends FilePrintConnector
 
         $this->fp = @fsockopen($ip, $port, $errno, $errstr, $timeout);
         if ($this->fp === false) {
-            throw new Exception("Cannot initialise NetworkPrintConnector: " . $errstr);
+            throw new \RuntimeException("Cannot initialise NetworkPrintConnector: " . $errstr);
         }
     }
 

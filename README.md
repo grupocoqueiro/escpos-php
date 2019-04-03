@@ -1,8 +1,4 @@
 # ESC/POS Print Driver for PHP
-[![Build Status](https://travis-ci.org/mike42/escpos-php.svg?branch=master)](https://travis-ci.org/mike42/escpos-php) [![Latest Stable Version](https://poser.pugx.org/mike42/escpos-php/v/stable)](https://packagist.org/packages/mike42/escpos-php)
-[![Total Downloads](https://poser.pugx.org/mike42/escpos-php/downloads)](https://packagist.org/packages/mike42/escpos-php)
-[![License](https://poser.pugx.org/mike42/escpos-php/license)](https://packagist.org/packages/mike42/escpos-php)
-[![Coverage Status](https://coveralls.io/repos/github/mike42/escpos-php/badge.svg?branch=development)](https://coveralls.io/github/mike42/escpos-php?branch=development)
 
 This project implements a subset of Epson's ESC/POS protocol for thermal receipt printers. It allows you to generate and print receipts with basic formatting, cutting, and barcodes on a compatible printer.
 
@@ -67,97 +63,17 @@ This driver is known to work with the following OS/interface combinations:
 ### Printers
 Many thermal receipt printers support ESC/POS to some degree. This driver has been known to work with:
 
-- 3nStar RPT-008
-- Approx APPPOS80AM
-- AURES ODP-333
-- AURES ODP-500
 - Bematech-4200-TH
-- Bematech LR2000E
-- Birch PRP-085III
-- Bixolon SRP-350III
-- Black Copper BC-85AC
-- Citizen CBM1000-II
-- Citizen CT-S310II
-- Dapper-Geyi Q583P 
-- Daruma DR800
-- DR-MP200 (manufacturer unknown)
-- EPOS TEP 220M
-- Epson EU-T332C
-- Epson FX-890 (requires `feedForm()` to release paper).
-- Epson TM-T20
-- Epson TM-T20II
-- Epson TM-T70
-- Epson TM-T70II
-- Epson TM-T81
-- Epson TM-T82II
-- Epson TM-T88II
-- Epson TM-T88III
-- Epson TM-T88IV
-- Epson TM-T88V
-- Epson TM-U220
-- Epson TM-U295 (requires `release()` to release slip).
-- Epson TM-U590 and TM-U590P
-- Equal (EQ-IT-001) POS-58
-- Excelvan HOP-E200 
-- Excelvan HOP-E58
-- Excelvan HOP-E801
-- Gainscha GP-5890x (Also marketed as EC Line 5890x)
-- Gainscha GP-U80300I (Also marketed as gprinter GP-U80300I)
-- gprinter GP-U80160I
-- HOIN HOP-H58
-- Ithaca iTherm 28
-- Hasar HTP 250
-- Metapace T-1
-- Metapace T-25
-- Nexa PX700
-- Nyear NP100
-- OKI RT322
-- OKI 80 Plus III
-- Orient BTP-R580
-- P-822D
-- P85A-401 (make unknown)
-- Partner Tech RP320
-- POSLIGNE ODP200H-III-G
-- QPOS Q58M
-- Rongta RP326US
-- Rongta RP58-U
-- Rongta RP80USE
-- Senor TP-100
-- Sewoo SLK-TS400
-- SEYPOS PRP-300 (Also marketed as TYSSO PRP-300)
-- Sicar POS-80
-- Silicon SP-201 / RP80USE
-- SPRT SP-POS88V
-- Star BSC10
-- Star TSP100 ECO
-- Star TSP100III FuturePRNT
-- Star TSP-650
-- Star TUP-592
-- Venus V248T
-- Xeumior SM-8330
-- Xprinter F-900
-- Xprinter XP-365B
-- Xprinter XP-58 Series
-- Xprinter XP-80C
-- Xprinter XP-90
-- XPrinter XP-Q20011
-- Xprinter XP-Q800
-- Zjiang NT-58H
-- Zjiang ZJ-5870
-- Zjiang ZJ-5890 (Also sold as POS-5890 by many vendors; ZJ-5890K, ZJ-5890T also work).
-- Zjiang ZJ-8220 (Also marketed as Excelvan ZJ-8220)
-
-If you use any other printer with this code, please [let us know](https://github.com/mike42/escpos-php/issues/new) so that it can be added to the list.
 
 ## Basic usage
 
 ### Include the library
 
 #### Composer
-If you are using composer, then add `mike42/escpos-php` as a dependency:
+If you are using composer, then add `grupocoqueiro/escpos-php` as a dependency:
 
 ```bash
-composer require mike42/escpos-php
+composer require grupocoqueiro/escpos-php
 ```
 
 In this case, you would include composer's auto-loader at the top of your source files:
@@ -171,12 +87,12 @@ require __DIR__ . '/vendor/autoload.php';
 If you don't have composer available, then simply download the code and include `autoload.php`:
 
 ```bash
-git clone https://github.com/mike42/escpos-php vendor/mike42/escpos-php
+git clone https://github.com/grupocoqueiro/escpos-php vendor/grupocoqueiro/escpos-php
 ```
 
 ```php
 <?php
-require __DIR__ . '/vendor/mike42/escpos-php/autoload.php';
+require __DIR__ . '/vendor/grupocoqueiro/escpos-php/autoload.php';
 ```
 
 #### Requirements
@@ -184,7 +100,7 @@ require __DIR__ . '/vendor/mike42/escpos-php/autoload.php';
 To maintain compatibility with as many systems as possible, this driver has few
 hard dependencies:
 
-- PHP 5.4 or above.
+- PHP 7 or above.
 - `mbstring` extension, since the driver accepts UTF-8 encoding.
 
 It is also suggested that you install either `imagick` or `gd`, so that you can
@@ -201,13 +117,13 @@ To make use of this driver, your server (where PHP is installed) must be able to
 <?php
 /* Call this file 'hello-world.php' */
 require __DIR__ . '/vendor/autoload.php';
-use Mike42\Escpos\PrintConnectors\FilePrintConnector;
-use Mike42\Escpos\Printer;
+use grupocoqueiro\Escpos\PrintConnectors\FilePrintConnector;
+use grupocoqueiro\Escpos\Printer;
 $connector = new FilePrintConnector("php://stdout");
 $printer = new Printer($connector);
-$printer -> text("Hello World!\n");
-$printer -> cut();
-$printer -> close();
+$printer->text("Hello World!\n");
+$printer->cut();
+$printer->close();
 ```
 
 Some examples are below for common interfaces.
@@ -244,13 +160,13 @@ If you have troubles at this point, then you should consult your OS and printer 
 
 ### Using a PrintConnector
 
-To print receipts from PHP, use the most applicable [PrintConnector](https://github.com/mike42/escpos-php/tree/master/src/Mike42/Escpos/PrintConnectors) for your setup. The connector simply provides the plumbing to get data to the printer.
+To print receipts from PHP, use the most applicable [PrintConnector](https://github.com/mike42/escpos-php/tree/master/src/grupocoqueiro/Escpos/PrintConnectors) for your setup. The connector simply provides the plumbing to get data to the printer.
 
 For example, a `NetworkPrintConnector` accepts an IP address and port:
 
 ```php
-use Mike42\Escpos\PrintConnectors\NetworkPrintConnector;
-use Mike42\Escpos\Printer;
+use grupocoqueiro\Escpos\PrintConnectors\NetworkPrintConnector;
+use grupocoqueiro\Escpos\Printer;
 $connector = new NetworkPrintConnector("10.x.x.x", 9100);
 $printer = new Printer($connector);
 try {
@@ -262,8 +178,8 @@ try {
 
 While a serial printer might use:
 ```php
-use Mike42\Escpos\PrintConnectors\FilePrintConnector;
-use Mike42\Escpos\Printer;
+use grupocoqueiro\Escpos\PrintConnectors\FilePrintConnector;
+use grupocoqueiro\Escpos\Printer;
 $connector = new FilePrintConnector("/dev/ttyS0");
 $printer = new Printer($connector);
 ```
@@ -277,8 +193,8 @@ Support for commands and code pages varies between printer vendors and models. B
 When trying out a new brand of printer, it's a good idea to use the "simple" `CapabilityProfile`, which instructs the driver to avoid the use of advanced features (generally simpler image handling, ASCII-only text).
 
 ```php
-use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
-use Mike42\Escpos\CapabilityProfile;
+use grupocoqueiro\Escpos\PrintConnectors\WindowsPrintConnector;
+use grupocoqueiro\Escpos\CapabilityProfile;
 $profile = CapabilityProfile::load("simple");
 $connector = new WindowsPrintConnector("smb://computer/printer");
 $printer = new Printer($connector, $profile);
@@ -287,23 +203,12 @@ $printer = new Printer($connector, $profile);
 As another example, Star-branded printers use different commands:
 
 ```php
-use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
-use Mike42\Escpos\CapabilityProfile;
+use grupocoqueiro\Escpos\PrintConnectors\WindowsPrintConnector;
+use grupocoqueiro\Escpos\CapabilityProfile;
 $profile = CapabilityProfile::load("SP2000")
 $connector = new WindowsPrintConnector("smb://computer/printer");
 $printer = new Printer($connector, $profile);
 ```
-
-For a list of available profiles, or to have support for your printer improved, please see the upstream [receipt-print-hq/escpos-printer-db](https://github.com/receipt-print-hq/escpos-printer-db) project.
-
-### Tips & examples
-On Linux, your printer device file will be somewhere like `/dev/lp0` (parallel), `/dev/usb/lp1` (USB), `/dev/ttyUSB0` (USB-Serial), `/dev/ttyS0` (serial).
-
-On Windows, the device files will be along the lines of `LPT1` (parallel) or `COM1` (serial). Use the `WindowsPrintConnector` to tap into system printing on Windows (eg. [Windows USB](https://github.com/mike42/escpos-php/tree/master/example/interface/windows-usb.php), [SMB](https://github.com/mike42/escpos-php/tree/master/example/interface/smb.php) or [Windows LPT](https://github.com/mike42/escpos-php/tree/master/example/interface/windows-lpt.php)) - this submits print jobs via a queue rather than communicating directly with the printer.
-
-A complete real-world receipt can be found in the code of [Auth](https://github.com/mike42/Auth) in [ReceiptPrinter.php](https://github.com/mike42/Auth/blob/master/lib/misc/ReceiptPrinter.php). It includes justification, boldness, and a barcode.
-
-Other examples are located in the [example/](https://github.com/mike42/escpos-php/blob/master/example/) directory.
 
 ## Available methods
 
@@ -313,8 +218,6 @@ Construct new print object.
 Parameters:
 - `PrintConnector $connector`: The PrintConnector to send data to.
 - `CapabilityProfile $profile` Supported features of this printer. If not set, the "default" CapabilityProfile will be used, which is suitable for Epson printers.
-
-See [example/interface/](https://github.com/mike42/escpos-php/tree/master/example/interface/) for ways to open connections for different platforms and interfaces.
 
 ### barcode($content, $type)
 Print a barcode.
@@ -559,7 +462,7 @@ The tests are executed on [Travis CI](https://travis-ci.org/mike42/escpos-php) o
 
 Fetch a copy of this code and load dependencies with composer:
 
-    git clone https://github.com/mike42/escpos-php
+    git clone https://github.com/grupocoqueiro/escpos-php
     cd escpos-php/
     composer install
 
